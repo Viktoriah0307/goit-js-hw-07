@@ -45,4 +45,3 @@ function onEscKeyPress(e) {
 }
  console.log(galleryItems);
 
-console.log(galleryItems);
