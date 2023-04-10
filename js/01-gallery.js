@@ -5,10 +5,11 @@ const itemsMarkup = createGalleryItemsMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', itemsMarkup);
 galleryContainer.addEventListener('click', onImgClick);
 
+// rendered items
 function createGalleryItemsMarkup(items) {
   return items
     .map(({ preview, original, description }) => {
-      return `<ul class="gallery__item">
+      return `<div class="gallery__item">
   <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
@@ -17,12 +18,13 @@ function createGalleryItemsMarkup(items) {
       alt="${description}"
     />
   </a>
-</ul>`;
+</div>`;
     })
     .join('');
 }
-const instance = basicLightbox.create(
-  `<img width="1280" height="auto" src="">`,
+
+const instance = basicLightbox.create(`
+<img title="" width="1280" height="auto" src="">`,
   {
     onShow: (instance) => {
       window.addEventListener('keydown', onEscKeyPress);
@@ -32,6 +34,7 @@ const instance = basicLightbox.create(
     },
   }
 );
+
 function onImgClick(e) {
   e.preventDefault();
   const datasetSource = e.target.dataset.source;
@@ -39,9 +42,8 @@ function onImgClick(e) {
   instance.element().querySelector('img').src = datasetSource;
   instance.show();
 }
+
 function onEscKeyPress(e) {
   if (e.code !== 'Escape') return;
   instance.close();
 }
-
- console.log(galleryItems);
